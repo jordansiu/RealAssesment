@@ -15,3 +15,10 @@ while True:
         for item in cart:
             print(f"- {item}")
     print(f"Subtotal: ${total:.2f}")
+
+    discount_applied = any(products[item]["discount"] for item in cart)
+        if discount_applied:
+            print("Discount applied: -10%")
+            total *= 0.9  # apply 10% discount
+        else:
+            print("No discount available.")
