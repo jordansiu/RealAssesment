@@ -9,3 +9,9 @@ cart = {}
 while True:
     print("\n--- Menu ---")
     item_name = input("Enter item name (or type 'total' to finish): ").lower()
+
+    if item_name == "total":
+        print("\nItems in your cart:")
+        for item in cart:
+            print(f"- {item}")
+    print(f"Subtotal: ${total:.2f}")
