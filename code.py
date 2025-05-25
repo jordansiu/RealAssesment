@@ -22,3 +22,11 @@ while True:
             total *= 0.9  # apply 10% discount
         else:
             print("No discount available.")
+            
+        print(f"Final total: ${total:.2f}")
+        confirm = input("Is that all the items? (yes/no): ").lower()
+        if confirm == "yes":
+            print("Proceeding to checkout...")
+            break
+        else:
+            continue
