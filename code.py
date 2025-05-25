@@ -30,3 +30,10 @@ while True:
             break
         else:
             continue
+
+elif item_name in products:
+        cart.append(item_name)
+        total += products[item_name]["price"]
+        print(f"{item_name.title()} added to cart. Current total: ${total:.2f}")
+    else:
+        print("Invalid item name.")
