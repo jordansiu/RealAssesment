@@ -71,3 +71,22 @@ while True:
 
     else:
         print(" Unknown action. Please type 'add', 'remove', or 'total'.")
+print("\n FINAL CART SUMMARY")
+display_cart()
+
+subtotal = calculate_total()
+if check_discount():
+    discount_amount = subtotal * 0.10
+    total = subtotal - discount_amount
+    print(f"\n Discount applied: -${discount_amount:.2f}")
+else:
+    total = subtotal
+    print("\nNo discount available.")
+
+print(f"Final Total: ${total:.2f}")
+
+confirm = input("Is this your final order? (yes/no): ").strip().lower()
+if confirm == "yes":
+    print(" Order confirmed! Proceeding to checkout...")
+else:
+    print(" Returning to menu... (restart the program to change items)")
