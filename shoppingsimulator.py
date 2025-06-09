@@ -38,3 +38,16 @@ while True:
 
     if action == "total":
         break
+
+    elif action == "add":
+        item_name = input("Enter the product name to add: ").strip().lower()
+        if item_name in products:
+            qty_input = input(f"How many {item_name}s would you like to add? ").strip()
+            if qty_input.isdigit():
+                qty = int(qty_input)
+                cart[item_name] = cart.get(item_name, 0) + qty
+                print(f"✅ Added {qty} x {item_name.title()} to cart.")
+            else:
+                print("❌ Invalid quantity. Must be a number.")
+        else:
+            print("❌ That item doesn't exist.")
