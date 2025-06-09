@@ -51,3 +51,23 @@ while True:
                 print(" Invalid quantity. Must be a number.")
         else:
             print(" That item doesn't exist.")
+            
+    elif action == "remove":
+        item_name = input("Enter the product name to remove: ").strip().lower()
+        if item_name in cart:
+            qty_input = input(f"How many {item_name}s would you like to remove? ").strip()
+            if qty_input.isdigit():
+                qty = int(qty_input)
+                if qty >= cart[item_name]:
+                    del cart[item_name]
+                    print(f" Removed all {item_name.title()}s from cart.")
+                else:
+                    cart[item_name] -= qty
+                    print(f" Removed {qty} x {item_name.title()}.")
+            else:
+                print(" Invalid quantity.")
+        else:
+            print(" That item is not in your cart.")
+
+    else:
+        print(" Unknown action. Please type 'add', 'remove', or 'total'.")
