@@ -28,3 +28,13 @@ def display_cart():
 
 def calculate_total():
     return sum(products[item]["price"] * qty for item, qty in cart.items())
+
+def check_discount():
+    return any(products[item]["discount"] for item in cart)
+while True:
+    display_products()
+    display_cart()
+    action = input("\nWhat would you like to do? (add/remove/total): ").strip().lower()
+
+    if action == "total":
+        break
