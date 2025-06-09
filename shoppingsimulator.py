@@ -46,8 +46,8 @@ while True:
             if qty_input.isdigit():
                 qty = int(qty_input)
                 cart[item_name] = cart.get(item_name, 0) + qty
-                print(f"✅ Added {qty} x {item_name.title()} to cart.")
+                print(f" Added {qty} x {item_name.title()} to cart.")
             else:
-                print("❌ Invalid quantity. Must be a number.")
+                print(" Invalid quantity. Must be a number.")
         else:
-            print("❌ That item doesn't exist.")
+            print(" That item doesn't exist.")
