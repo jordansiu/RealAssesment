@@ -88,5 +88,7 @@ print(f"Final Total: ${total:.2f}")
 confirm = input("Is this your final order? (yes/no): ").strip().lower()
 if confirm == "yes":
     print(" Order confirmed! Proceeding to checkout...")
-else:
+elif confirm == "no":
     print(" Returning to menu... (restart the program to change items)")
+else:
+    print("Invalid word")
