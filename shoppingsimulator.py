@@ -31,3 +31,17 @@ root.geometry("600x700")  # Made bigger since we have more features
 cart_text = tk.StringVar()
 total_text = tk.StringVar()
 message_text = tk.StringVar()
+
+# This function updates the cart view and the total
+def update_cart_display():
+    lines = []
+    total = 0.0
+    for item, qty in cart.items():
+        price = products[item]["price"] * qty
+        total += price
+        lines.append(f"{item} x{qty} = ${price:.2f}")
+    if lines:
+        cart_text.set("\n".join(lines))
+    else:
+        cart_text.set("Cart is empty.")
+    total_text.set(f"Subtotal: ${total:.2f}")
