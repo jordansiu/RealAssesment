@@ -18,3 +18,16 @@ products = {
     "Cereal": {"price": 3.8, "discount": False},
     "Butter": {"price": 2.9, "discount": True}
 }
+
+# This keeps track of what you've added to your cart.
+cart = {}
+
+# Set up the main window
+root = tk.Tk()
+root.title("Shopping Cart System")
+root.geometry("600x700")  # Made bigger since we have more features
+
+# Variables that will update the cart and messages on screen
+cart_text = tk.StringVar()
+total_text = tk.StringVar()
+message_text = tk.StringVar()
