@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 # This is a simple shopping cart system made with tkinter GUI.
 # You can add or remove products, see the total, check for discounts, and choose a payment method.
-# This version is now made longer and includes more explanations and options.
+# This version includes a fix so discounts apply only to products that actually have them.
 
 # This is the list of items you can buy. Each item has a price and some have discounts.
 products = {
@@ -22,10 +22,10 @@ products = {
 # This keeps track of what you've added to your cart.
 cart = {}
 
-# Set up the main window
+# Set up the main window (made smaller so it fits on smaller screens)
 root = tk.Tk()
 root.title("Shopping Cart System")
-root.geometry("600x700")  # Made bigger since we have more features
+root.geometry("520x640")  # Smaller window size
 
 # Variables that will update the cart and messages on screen
 cart_text = tk.StringVar()
@@ -38,15 +38,15 @@ def update_cart_display():
     total = 0.0
     for item, qty in cart.items():
         price = products[item]["price"] * qty
-        total += price
         lines.append(f"{item} x{qty} = ${price:.2f}")
+        total += price
     if lines:
         cart_text.set("\n".join(lines))
     else:
         cart_text.set("Cart is empty.")
     total_text.set(f"Subtotal: ${total:.2f}")
 
-    # When you click Add, it adds the item to the cart
+# When you click Add, it adds the item to the cart
 def add_item(item):
     cart[item] = cart.get(item, 0) + 1
     message_text.set(f"Added {item}")
@@ -69,8 +69,8 @@ def clear_cart():
     cart.clear()
     update_cart_display()
     message_text.set("Cart cleared")
-    
-    # A reset button to clear everything and reset payment option
+
+# A reset button to clear everything and reset payment option
 def reset_all():
     cart.clear()
     payment_var.set("Cash")
@@ -83,24 +83,32 @@ def checkout():
     if not cart:
         messagebox.showinfo("Checkout", "Your cart is empty!")
         return
-    subtotal = sum(products[item]["price"] * qty for item, qty in cart.items())
-    discount = any(products[item]["discount"] for item in cart)
-    final_total = subtotal * 0.9 if discount else subtotal
 
-    summary = "Checkout Summary\n"
-    summary += f"Subtotal: ${subtotal:.2f}\n"
-    summary += "Discount: 10%\n" if discount else "Discount: None\n"
-    summary += f"Total: ${final_total:.2f}\n"
-    summary += f"Payment Method: {payment_var.get()}\n"
-    summary += "\nItems:\n"
+    subtotal = 0.0
+    discount_total = 0.0
+    summary_lines = []
 
     for item, qty in cart.items():
-        summary += f"- {item} x{qty}\n"
+        item_price = products[item]["price"]
+        if products[item]["discount"]:
+            item_total = item_price * qty * 0.9  # apply 10% discount
+            discount_total += (item_price * qty) - item_total
+        else:
+            item_total = item_price * qty
+        subtotal += item_total
+        summary_lines.append(f"- {item} x{qty} = ${item_total:.2f}")
+
+    summary = "Checkout Summary\n"
+    summary += f"Total Savings: ${discount_total:.2f}\n"
+    summary += f"Final Total: ${subtotal:.2f}\n"
+    summary += f"Payment Method: {payment_var.get()}\n"
+    summary += "\nItems:\n"
+    summary += "\n".join(summary_lines)
 
     messagebox.showinfo("Order Complete", summary)
     clear_cart()
 
-    # Shows a help popup with instructions
+# Shows a help popup with instructions
 def show_help():
     help_msg = (
         "Instructions:\n"
@@ -113,7 +121,7 @@ def show_help():
     )
     messagebox.showinfo("Help", help_msg)
 
-    # This part makes the list of products and buttons
+# This part makes the list of products and buttons
 frame = tk.Frame(root)
 frame.pack(pady=10)
 
@@ -121,7 +129,7 @@ tk.Label(frame, text="Product List", font=("Arial", 14)).pack()
 for item in products:
     btn_frame = tk.Frame(frame)
     btn_frame.pack(fill='x', padx=5, pady=2)
-    label_text = f"{item} - ${products[item]['price']:.2f} ({'10% off' if products[item]['discount'] else 'No discount'})"
+    label_text = f"{item} - ${products[item]['price']:.2f} ({'10 percent off' if products[item]['discount'] else 'No discount'})"
     tk.Label(btn_frame, text=label_text, width=40, anchor='w').pack(side='left')
     tk.Button(btn_frame, text="Add", width=6, command=lambda i=item: add_item(i)).pack(side='left')
     tk.Button(btn_frame, text="Remove", width=8, command=lambda i=item: remove_item(i)).pack(side='left')
