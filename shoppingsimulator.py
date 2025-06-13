@@ -25,7 +25,7 @@ cart = {}
 # Set up the main window (smaller to fit most screens)
 root = tk.Tk()
 root.title("Shopping Cart System")
-root.geometry("500x480")  # Smaller window size to fit smaller screens
+root.geometry("600x700")  #reverted window size because previous version had text that would not show
 
 # Variables that update the GUI content
 cart_text = tk.StringVar()
