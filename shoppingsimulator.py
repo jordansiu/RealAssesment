@@ -112,3 +112,16 @@ def show_help():
         "6. Reset will restart the whole thing."
     )
     messagebox.showinfo("Help", help_msg)
+
+    # This part makes the list of products and buttons
+frame = tk.Frame(root)
+frame.pack(pady=10)
+
+tk.Label(frame, text="Product List", font=("Arial", 14)).pack()
+for item in products:
+    btn_frame = tk.Frame(frame)
+    btn_frame.pack(fill='x', padx=5, pady=2)
+    label_text = f"{item} - ${products[item]['price']:.2f} ({'10% off' if products[item]['discount'] else 'No discount'})"
+    tk.Label(btn_frame, text=label_text, width=40, anchor='w').pack(side='left')
+    tk.Button(btn_frame, text="Add", width=6, command=lambda i=item: add_item(i)).pack(side='left')
+    tk.Button(btn_frame, text="Remove", width=8, command=lambda i=item: remove_item(i)).pack(side='left')
