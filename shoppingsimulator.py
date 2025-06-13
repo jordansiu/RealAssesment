@@ -83,3 +83,32 @@ def checkout():
     if not cart:
         messagebox.showinfo("Checkout", "Your cart is empty!")
         return
+    subtotal = sum(products[item]["price"] * qty for item, qty in cart.items())
+    discount = any(products[item]["discount"] for item in cart)
+    final_total = subtotal * 0.9 if discount else subtotal
+
+    summary = "Checkout Summary\n"
+    summary += f"Subtotal: ${subtotal:.2f}\n"
+    summary += "Discount: 10%\n" if discount else "Discount: None\n"
+    summary += f"Total: ${final_total:.2f}\n"
+    summary += f"Payment Method: {payment_var.get()}\n"
+    summary += "\nItems:\n"
+
+    for item, qty in cart.items():
+        summary += f"- {item} x{qty}\n"
+
+    messagebox.showinfo("Order Complete", summary)
+    clear_cart()
+
+    # Shows a help popup with instructions
+def show_help():
+    help_msg = (
+        "Instructions:\n"
+        "1. Use Add to put something in your cart.\n"
+        "2. Use Remove to take something out.\n"
+        "3. Choose how you want to pay (like cash or card).\n"
+        "4. Click Checkout to see your total.\n"
+        "5. Clear Cart removes all items.\n"
+        "6. Reset will restart the whole thing."
+    )
+    messagebox.showinfo("Help", help_msg)
