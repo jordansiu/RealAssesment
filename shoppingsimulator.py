@@ -51,3 +51,15 @@ def add_item(item):
     cart[item] = cart.get(item, 0) + 1
     message_text.set(f"Added {item}")
     update_cart_display()
+
+# When you click Remove, it takes one of that item out of the cart
+def remove_item(item):
+    if item in cart:
+        if cart[item] > 1:
+            cart[item] -= 1
+        else:
+            del cart[item]
+        message_text.set(f"Removed {item}")
+    else:
+        message_text.set(f"{item} not in cart")
+    update_cart_display()
