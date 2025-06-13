@@ -45,3 +45,9 @@ def update_cart_display():
     else:
         cart_text.set("Cart is empty.")
     total_text.set(f"Subtotal: ${total:.2f}")
+
+    # When you click Add, it adds the item to the cart
+def add_item(item):
+    cart[item] = cart.get(item, 0) + 1
+    message_text.set(f"Added {item}")
+    update_cart_display()
