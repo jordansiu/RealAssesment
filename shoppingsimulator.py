@@ -77,3 +77,9 @@ def reset_all():
     cart_text.set("")
     total_text.set("")
     message_text.set("System reset")
+
+# When you click Checkout, this shows the final total and the payment type
+def checkout():
+    if not cart:
+        messagebox.showinfo("Checkout", "Your cart is empty!")
+        return
