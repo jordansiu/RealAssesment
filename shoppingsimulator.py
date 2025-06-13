@@ -69,3 +69,11 @@ def clear_cart():
     cart.clear()
     update_cart_display()
     message_text.set("Cart cleared")
+    
+    # A reset button to clear everything and reset payment option
+def reset_all():
+    cart.clear()
+    payment_var.set("Cash")
+    cart_text.set("")
+    total_text.set("")
+    message_text.set("System reset")
