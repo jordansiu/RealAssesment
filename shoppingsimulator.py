@@ -125,3 +125,27 @@ for item in products:
     tk.Label(btn_frame, text=label_text, width=40, anchor='w').pack(side='left')
     tk.Button(btn_frame, text="Add", width=6, command=lambda i=item: add_item(i)).pack(side='left')
     tk.Button(btn_frame, text="Remove", width=8, command=lambda i=item: remove_item(i)).pack(side='left')
+
+# This shows your cart and totals
+tk.Label(root, text="\nYour Cart", font=("Arial", 13)).pack()
+tk.Label(root, textvariable=cart_text, justify='left', bg="white", relief="solid", width=50, height=8).pack(pady=5)
+tk.Label(root, textvariable=total_text, font=('Arial', 12, 'bold')).pack(pady=5)
+tk.Label(root, textvariable=message_text, fg='green').pack()
+
+# Dropdown to pick how you want to pay
+tk.Label(root, text="Payment Method:", font=('Arial', 11)).pack()
+payment_var = tk.StringVar(value="Cash")
+payment_menu = tk.OptionMenu(root, payment_var, "Cash", "Credit", "EFTPOS", "Online Banking")
+payment_menu.pack(pady=5)
+
+# These are the action buttons at the bottom
+btns = tk.Frame(root)
+btns.pack(pady=10)
+tk.Button(btns, text="Checkout", width=12, bg="green", fg="white", command=checkout).pack(side='left', padx=5)
+tk.Button(btns, text="Clear Cart", width=12, command=clear_cart).pack(side='left', padx=5)
+tk.Button(btns, text="Reset All", width=12, command=reset_all).pack(side='left', padx=5)
+tk.Button(btns, text="Help", width=10, command=show_help).pack(side='left', padx=5)
+
+# Start the app
+update_cart_display()
+root.mainloop()
