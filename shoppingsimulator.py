@@ -63,3 +63,9 @@ def remove_item(item):
     else:
         message_text.set(f"{item} not in cart")
     update_cart_display()
+
+# This clears everything from the cart
+def clear_cart():
+    cart.clear()
+    update_cart_display()
+    message_text.set("Cart cleared")
